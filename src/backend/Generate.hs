@@ -25,9 +25,10 @@ data Highlight = Highlight | NoHighlight
 serverHtml :: String -> String -> H.Html
 serverHtml name jsSource =
   htmlSkeleton Analytics Highlight name $
-    do  H.script $ Blaze.preEscapedToMarkup jsSource
-        H.script "var runningElmModule = Elm.Main.fullscreen();"
-
+    do  -- H.script $ Blaze.preEscapedToMarkup jsSource
+        H.div ! A.id "code" $ ""
+        H.script ! A.src "/assets/trycode.js" $ ""
+        -- H.script "var runningElmModule = Elm.Main.fullscreen();"
 
 
 -- FOREIGN HTML
@@ -84,7 +85,7 @@ htmlSkeleton analytics highlight title scripts =
         NoHighlight ->
           return ()
 
-    H.body scripts
+    H.body ! A.id "body" $ scripts
 
 
 favicon :: H.Html

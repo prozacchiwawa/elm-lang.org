@@ -5,17 +5,16 @@ var refreshImports = function() {};
 
 function compile()
 {
-	var form = document.getElementById('inputForm');
-	form.submit();
+    var code = editor.doc.getValue();
+    window.parent.postMessage({msg: 'compile-code', source: code}, location.href);
 	refreshImports();
 }
-
 
 // SETUP CODEMIRROR
 
 function initEditor()
 {
-	var controlsDiv = document.getElementById('controls');
+    var controlsDiv = document.getElementById('controls');
 	var controls = Elm.EditorControls.embed(controlsDiv);
 	controls.ports.compile.subscribe(compile);
 	controls.ports.lights.subscribe(toggleTheme);

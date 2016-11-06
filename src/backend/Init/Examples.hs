@@ -99,7 +99,9 @@ editor title codePath resultPath =
     H.head . H.title $ toHtml title
     preEscapedToMarkup $
         concat
-          [ "<frameset cols=\"50%,50%\">\n"
+          [ "<script src='/assets/browsertest.js'></script>"
+          , "<script src='/assets/compiler.js'></script>"
+          , "<frameset cols=\"50%,50%\">\n"
           , "  <frame name=\"input\" src=\"/", codePath, "\" />\n"
           , "  <frame name=\"output\" src=\"/", resultPath, "\" />\n"
           , "</frameset>"
@@ -132,7 +134,7 @@ code name source =
         js "/editor/controls.js"
         js "/editor/editor.js"
       H.body $ do
-        H.form ! A.id "inputForm" ! A.action "/compile" ! A.method "post" ! A.target "output" $ do
+        H.form ! A.id "inputForm" $ do
            H.div ! A.id "controls" $ ""
            H.div ! A.id "editor_box" $
              H.textarea ! A.name "input" ! A.id "input" $ toHtml source
